@@ -4,6 +4,7 @@ import Carousel from "../components/carousel/Carousel";
 import CarouselItem from "../components/carousel/CarouselItem";
 
 const Home = () => {
+  // TODO a modifier
   return (
     <Carousel>
       <CarouselItem>
