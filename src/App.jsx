@@ -1,12 +1,14 @@
 import React from "react";
-import logo from "./assets/people01.png";
+// import logo from "./assets/people01.png";
 import Footer from "./components/footer/Footer";
-import Nav from "./components/Nav";
-import Nav2 from "./components/Nav2";
-import Navbar from "./components/Navbar";
-import Hero from "../Hero";
+// import Nav from "./components/Nav";
+// import Nav2 from "./components/Nav2";
+// import Navbar from "./components/Navbar";
+// import Hero from "../Hero";
 import BtnTop from "./components/BtnTop";
 import NavFinal from "./components/NavFinal";
+import Carousel from "./components/carousel/Carousel";
+import CarouselItem from "./components/carousel/CarouselItem";
 
 // on peut declarer un couleur in config tailwind
 const App = () => {
@@ -17,6 +19,17 @@ const App = () => {
       {/* <Navbar /> */}
       {/* <Hero /> */}
       <NavFinal />
+      <Carousel>
+        <CarouselItem>
+          <img src="robot.png" className="object-scale-down" />
+        </CarouselItem>
+        <CarouselItem>
+          <img src="card.png" />
+        </CarouselItem>
+        <CarouselItem>
+          <img src="robot.png" />
+        </CarouselItem>
+      </Carousel>
       <Footer />
       <BtnTop />
     </div>
