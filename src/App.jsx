@@ -4,6 +4,7 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
+  Link,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -17,12 +18,25 @@ const App = () => {
   const routes = createBrowserRouter(
     createRoutesFromElements(
       // Layout principal
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+      <Route
+        path="/"
+        element={<Layout />}
+        errorElement={<ErrorPage />}
+        handle={{ crumb: () => <Link to={"/"}>HomeEe</Link> }}
+      >
         <Route path="" element={<Home />} />
         {/* NFT layout */}
         <Route path="nfts" element={<NftLayout />}>
-          <Route path="" element={<Listing />} />
-          <Route path="new" element={<NewNft />} />
+          <Route
+            path=""
+            element={<Listing />}
+            handle={{ crumb: () => <Link to={"nfts"}>listing</Link> }}
+          />
+          <Route
+            path="new"
+            element={<NewNft />}
+            handle={{ crumb: () => <Link to={"nfts/new"}>add</Link> }}
+          />
         </Route>
       </Route>
     )

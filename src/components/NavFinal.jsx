@@ -1,4 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
+import { Link } from "react-router-dom";
+
 import f from "../../public/f.svg";
 
 function NavFinal() {
@@ -44,18 +46,22 @@ function NavFinal() {
           {/* nav menu for desktop */}
           <nav className="hidden md:flex md:items-center md:space-x-5 font-normal text-[18px] ">
             <div>اتصل بنا</div>
-            <div>أضف NFT</div>
+            <div>
+              <Link to={"nfts/new"}>أضف NFT</Link>
+            </div>
             <div className="relative">
               <div className="group">
-                <a href="#">عرض</a>
+                عرض
                 <div className=" absolute top-16 left-5 opacity-0 p-4 -z-40  space-y-10 transition-all duration-1000 group-hover:z-40  group-hover:-translate-y-5  group-hover:opacity-100 ">
-                  <a href="#">رموز الـNFT</a>
+                  <Link to={"nfts"}>رموز الـNFT</Link>
                   <a href="#">صانعي الرموز</a>
                 </div>
               </div>
             </div>
             <div>تقديم المشروع</div>
-            <div>الرئيسية</div>
+            <div>
+              <Link to={"/"}>الرئيسية</Link>
+            </div>
           </nav>
           <img
             className=""
