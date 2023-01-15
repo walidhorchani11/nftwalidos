@@ -1,12 +1,29 @@
-import React, { createContext, FunctionComponent, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  FunctionComponent,
+  useContext,
+} from "react";
 import { Web3State, createDefaultState } from "./utils";
 
 const Web3ProviderContext = createContext<Web3State>(createDefaultState());
 Web3ProviderContext.displayName = "web3ProviderContext";
 
 const Web3Provider: FunctionComponent = ({ children }) => {
+  const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
+
+  useEffect(() => {
+    setWeb3Api({
+      ethereum: window.ethereum,
+      provider: null,
+      contract: null,
+      isLoading: false,
+    });
+  }, []);
+
   return (
-    <Web3ProviderContext.Provider value={createDefaultState()}>
+    <Web3ProviderContext.Provider value={web3Api}>
       {children}
     </Web3ProviderContext.Provider>
   );
