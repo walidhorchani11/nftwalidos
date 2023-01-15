@@ -4,17 +4,12 @@ import React, { useEffect, useState } from "react";
 function BtnTop() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    console.log("%c in useEffect", "rcolor:red");
     window.onscroll = () => {
       const scrollTop = document.documentElement.scrollTop;
-      console.info("scroll fire+++++++++++++++++++", scrollTop);
 
       if (scrollTop > 200 && show == false) {
-        console.log("breeeaaaaaakkk +++++");
         setShow(true);
       } else if (scrollTop <= 200 && show == true) {
-        console.log("to false --------------");
-
         setShow(false);
       }
     };

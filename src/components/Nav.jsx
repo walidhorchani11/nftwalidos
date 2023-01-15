@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import detectEthereumProvider from '@metamask/detect-provider';
-import Web3 from 'web3';
+import React, { useEffect, useState } from "react";
+import detectEthereumProvider from "@metamask/detect-provider";
+import Web3 from "web3";
 
 function Nav() {
   const [web3Api, setWeb3Api] = useState({
@@ -16,13 +16,9 @@ function Nav() {
     if (provider) {
       let accounts = [];
       const currentAccount = provider.selectedAddress;
-      console.log(
-        '🚀 ~ file: Nav.jsx:19 ~ handleConnectWal ~ isConnected',
-        currentAccount
-      );
       if (manualConnect && !currentAccount) {
         accounts = await provider.request({
-          method: 'eth_requestAccounts',
+          method: "eth_requestAccounts",
         });
       }
       setWeb3Api({
@@ -31,7 +27,7 @@ function Nav() {
         account: accounts[0] || provider.selectedAddress,
       });
     } else {
-      alert('please install metamask');
+      alert("please install metamask");
     }
   };
 
@@ -41,7 +37,7 @@ function Nav() {
     handleConnectWallet(false)
       .then(() =>
         console.log(
-          'connect to metamask auto si il est connecté deja ...................'
+          "connect to metamask auto si il est connecté deja ..................."
         )
       )
       .catch((error) => console.log({ error }));
@@ -49,15 +45,13 @@ function Nav() {
 
   //listner for account change, il faut le faire dans app , si nn si le comp unmount et on fait un chnagement , on aura rien
   useEffect(() => {
-    console.log('in useEffect to handle listner --------');
     if (web3Api.provider) {
-      const listner = web3Api.provider.on('accountsChanged', (accounts) => {
-        alert('votre compte est chnger');
+      const listner = web3Api.provider.on("accountsChanged", (accounts) => {
+        alert("votre compte est chnger");
         console.log({ accounts });
         // handle redux to save new account
         setWeb3Api((prev) => ({ ...prev, account: accounts[0] }));
       });
-      console.log('🚀 ~ file: Nav.jsx:29 ~ listner ~ listner', listner);
 
       // TODO ethereum.removeListener('accountsChanged', handleAccountsChanged);
       return () => listner;

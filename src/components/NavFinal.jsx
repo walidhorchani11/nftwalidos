@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import f from "../../public/f.svg";
 
 function NavFinal() {
-  console.log({ f });
   const [show, setShow] = useState(false);
   const [heightMenu, setHeightMenu] = useState(0);
   const refMenuMobile = useRef(null);

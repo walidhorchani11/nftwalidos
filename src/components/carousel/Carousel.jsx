@@ -14,7 +14,6 @@ function Carousel({ children }) {
   //   }, [currentIndex]);
 
   function updateIndex(val) {
-    console.log("hani clikit -----------");
     if (val >= React.Children.count(children)) {
       setCurrentIndex(0);
     } else if (val < 0) {
