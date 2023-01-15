@@ -1,19 +1,12 @@
 import React, { createContext, FunctionComponent, useContext } from "react";
-import { MetaMaskInpageProvider } from "@metamask/providers";
-import { Contract, providers } from "ethers";
+import { Web3State, createDefaultState } from "./utils";
 
-export type Web3State = {
-  ethereum?: MetaMaskInpageProvider;
-  provider?: providers.Web3Provider;
-  contract?: Contract;
-};
-
-const Web3ProviderContext = createContext<Web3State>({});
+const Web3ProviderContext = createContext<Web3State>(createDefaultState());
 Web3ProviderContext.displayName = "web3ProviderContext";
 
 const Web3Provider: FunctionComponent = ({ children }) => {
   return (
-    <Web3ProviderContext.Provider value={{}}>
+    <Web3ProviderContext.Provider value={createDefaultState()}>
       {children}
     </Web3ProviderContext.Provider>
   );
