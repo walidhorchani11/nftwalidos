@@ -19,6 +19,8 @@ const Web3Provider: FunctionComponent = ({ children }) => {
 
   const handleAccount = useCallback(
     (newAccount) => {
+      // TODO , why web3Api.account always same value
+
       console.log(
         "******************ancien value of address :::::: ",
         web3Api.account
