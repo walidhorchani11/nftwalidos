@@ -15,6 +15,8 @@ export type Web3Params = {
 
 export type Web3State = {
   isLoading: boolean;
+  account: string;
+  isConnected: boolean;
 } & Web3Params;
 
 export const createDefaultState = () => ({
@@ -22,6 +24,8 @@ export const createDefaultState = () => ({
   provider: null,
   contract: null,
   isLoading: true,
+  account: "",
+  isConnected: false,
 });
 
 export const loadContract = async (
