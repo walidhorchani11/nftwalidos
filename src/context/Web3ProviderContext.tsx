@@ -5,7 +5,7 @@ import React, {
   FunctionComponent,
   useContext,
 } from "react";
-import { Web3State, createDefaultState } from "./utils";
+import { Web3State, createDefaultState, loadContract } from "./utils";
 import { ethers } from "ethers";
 
 const Web3ProviderContext = createContext<Web3State>(createDefaultState());
@@ -15,12 +15,21 @@ const Web3Provider: FunctionComponent = ({ children }) => {
   const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
 
   useEffect(() => {
-    setWeb3Api({
-      ethereum: window.ethereum,
-      provider: new ethers.providers.Web3Provider(window.ethereum),
-      contract: null,
-      isLoading: false,
-    });
+    // create an async fct to not block code, also load contract is an async fct,we have to use await
+    const initWeb3 = async () => {
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum as any
+      );
+      const contract = await loadContract("NftMarket", provider);
+
+      setWeb3Api({
+        ethereum: window.ethereum,
+        provider,
+        contract,
+        isLoading: false,
+      });
+    };
+    initWeb3();
   }, []);
 
   return (
