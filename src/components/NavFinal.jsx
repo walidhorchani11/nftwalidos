@@ -1,6 +1,8 @@
-import React, { useState, useRef, useLayoutEffect, useContext } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
-import { Web3ProviderContext } from "../context/Web3ProviderContext";
+
+import useAccount from "../hooks/useAccount";
+
 function NavFinal() {
   const [show, setShow] = useState(false);
   const [heightMenu, setHeightMenu] = useState(0);
@@ -10,32 +12,7 @@ function NavFinal() {
     setHeightMenu(refMenuMobile.current.scrollHeight);
   }, []);
 
-  const {
-    web3Api: { ethereum, account, isConnected },
-    setWeb3Api,
-  } = useContext(Web3ProviderContext);
-
-  const handleConnect = async () => {
-    try {
-      console.log("clique to connect");
-      const [currentAccount] = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      // TODO we have currentAccount we can connect to db to get information about user connected by address
-      //TODO a verifier:  mettre a jour state here or by listner to connection
-      setWeb3Api((prev) => ({
-        ...prev,
-        account: currentAccount,
-        isConnected: true,
-      }));
-      console.log("m a aj termineeeeeeeeee");
-    } catch (error) {
-      console.error(
-        "🚀 ~ file: NavFinal.jsx:25 ~ handleConnect ~ error",
-        error
-      );
-    }
-  };
+  const { handleConnect, isConnected } = useAccount();
 
   return (
     <section className="">
