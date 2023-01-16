@@ -8,7 +8,9 @@ import React, {
 import { Web3State, createDefaultState, loadContract } from "./utils";
 import { ethers } from "ethers";
 
-const Web3ProviderContext = createContext<Web3State>(createDefaultState());
+export const Web3ProviderContext = createContext<Web3State>(
+  createDefaultState()
+);
 Web3ProviderContext.displayName = "web3ProviderContext";
 
 const Web3Provider: FunctionComponent = ({ children }) => {
@@ -20,20 +22,24 @@ const Web3Provider: FunctionComponent = ({ children }) => {
       const provider = new ethers.providers.Web3Provider(
         window.ethereum as any
       );
+      //TODO NftMarket mettre dans un const ou var env
       const contract = await loadContract("NftMarket", provider);
+      const ethereum = window.ethereum;
 
       setWeb3Api({
-        ethereum: window.ethereum,
+        ethereum,
         provider,
         contract,
         isLoading: false,
+        account: ethereum.selectedAddress || "",
+        isConnected: Boolean(ethereum.selectedAddress),
       });
     };
     initWeb3();
   }, []);
 
   return (
-    <Web3ProviderContext.Provider value={web3Api}>
+    <Web3ProviderContext.Provider value={{ web3Api, setWeb3Api }}>
       {children}
     </Web3ProviderContext.Provider>
   );
