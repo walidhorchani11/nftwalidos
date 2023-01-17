@@ -43,22 +43,30 @@ const Web3Provider: FunctionComponent = ({ children }) => {
     console.log("in ------------------ 1111");
     // create an async fct to not block code, also load contract is an async fct,we have to use await
     const initWeb3 = async () => {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum as any
-      );
-      //TODO NftMarket mettre dans un const ou var env
-      const contract = await loadContract("NftMarket", provider);
-      const ethereum = window.ethereum;
-      debugger;
+      try {
+        const ethereum = window.ethereum;
+        const provider = new ethers.providers.Web3Provider(ethereum as any);
+        //TODO NftMarket mettre dans un const ou var env
+        const contract = await loadContract("NftMarket", provider);
 
-      setWeb3Api({
-        ethereum,
-        provider,
-        contract,
-        isLoading: false,
-        account: ethereum.selectedAddress || "",
-        isConnected: Boolean(ethereum.selectedAddress),
-      });
+        setWeb3Api({
+          ethereum,
+          provider,
+          contract,
+          isLoading: false,
+          account: ethereum.selectedAddress || "",
+          isConnected: Boolean(ethereum.selectedAddress),
+        });
+      } catch (error) {
+        console.error(
+          "🚀 ~ file: Web3ProviderContext.tsx:64 ~ initWeb3 ~ error",
+          error
+        );
+        setWeb3Api((prev) => ({
+          ...prev,
+          isLoading: false,
+        }));
+      }
     };
     initWeb3();
   }, []);

@@ -12,6 +12,11 @@ function useAccount() {
   const handleConnect = async () => {
     try {
       console.log("clique to connect");
+      if (!ethereum) {
+        alert("please install metamask");
+        window.open("https://metamask.io/download/", "_blank");
+        return;
+      }
       const [currentAccount] = await ethereum.request({
         method: "eth_requestAccounts",
       });
